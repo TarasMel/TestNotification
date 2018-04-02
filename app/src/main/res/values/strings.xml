@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">TestNotification</string>
+    <string name="btn_plus">Plus</string>
+    <string name="btn_minus">Minus</string>
+    <string name="txt_page">1</string>
+    <string name="create_Notification">Create Notification</string>
+
+    <string name="notification_title">Notification created on</string>
+    <string name="page">page</string>
+</resources>
