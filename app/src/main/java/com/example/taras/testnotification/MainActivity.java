@@ -12,12 +12,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
     private static final int NOTIFY_ID = 101;
+    private static final int MIN_VALUE_PAGE = 1;
+    private static final int MAX_VALUE_PAGE = 3;
 
     @BindView(R.id.txt_page_ID)
     TextView txt_page_state;
@@ -30,28 +33,30 @@ public class MainActivity extends AppCompatActivity {
     Button btn_create_notification;
 
     @OnClick({R.id.btn_plus_ID, R.id.btn_minus_ID, R.id.btn_createNotification_ID})
-    public void onClick(View view){
-        switch(view.getId()){
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.btn_plus_ID:
                 int i = Integer.parseInt(txt_page_state.getText().toString());
                 txt_page_state.setText(Integer.toString(++i));
+                blockMinusPage();
+                blockPlusPage();
                 break;
             case R.id.btn_minus_ID:
-                if (Integer.parseInt(txt_page_state.getText().toString()) != 1){
-                    int n = Integer.parseInt(txt_page_state.getText().toString());
-                    txt_page_state.setText(Integer.toString(--n));
-                }
+                int n = Integer.parseInt(txt_page_state.getText().toString());
+                txt_page_state.setText(Integer.toString(--n));
+                blockMinusPage();
+                blockPlusPage();
                 break;
             case R.id.btn_createNotification_ID:
-                Intent notificationIntent = new Intent(MainActivity.this,MainActivity.class);
+                Intent notificationIntent = new Intent(MainActivity.this, MainActivity.class);
                 PendingIntent contentIntent = PendingIntent.getActivity(MainActivity.this, 0,
                         notificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
                 Resources res = this.getResources();
                 NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
                 builder.setContentIntent(contentIntent).setSmallIcon(R.drawable.n_2x).setContentTitle
-                        ("Eshkere").
-                        setContentText(res.getString(R.string.notification_title)+" "+
-                                txt_page_state.getText().toString()+" "+res.getString(R.string.page));
+                        (res.getString(R.string.notification_title)).
+                        setContentText(res.getString(R.string.notification_title) + " " +
+                                txt_page_state.getText().toString() + " " + res.getString(R.string.notification_text));
                 NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
                 notificationManager.notify(NOTIFY_ID, builder.build());
                 break;
@@ -63,6 +68,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
+        blockMinusPage();
+        blockPlusPage();
     }
+    public void blockMinusPage(){
+        if(Integer.parseInt(txt_page_state.getText().toString()) == MIN_VALUE_PAGE){
+            btn_minus_page.setVisibility(View.INVISIBLE);
+        }
+        else btn_minus_page.setVisibility(View.VISIBLE);
+    }
+    public void blockPlusPage(){
+        if(Integer.parseInt(txt_page_state.getText().toString()) == MAX_VALUE_PAGE){
+            btn_plus_page.setVisibility(View.INVISIBLE);
+        }
+        else btn_plus_page.setVisibility(View.VISIBLE);
+    }
+
 }

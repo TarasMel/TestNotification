@@ -5,6 +5,6 @@
     <string name="txt_page">1</string>
     <string name="create_Notification">Create Notification</string>
 
-    <string name="notification_title">Notification created on</string>
-    <string name="page">page</string>
+    <string name="notification_title">Notification</string>
+    <string name="notification_text">Notification created on %s page</string>
 </resources>
