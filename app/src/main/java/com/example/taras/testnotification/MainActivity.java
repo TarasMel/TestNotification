@@ -59,13 +59,9 @@ public class MainActivity extends AppCompatActivity {
                                 + " " + res.getString(R.string.notification_page)).
                 setContentIntent(pendingIntent).
                 setAutoCancel(true);
-
                 NotificationManager notificationManager = (NotificationManager)
                         getSystemService(Context.NOTIFICATION_SERVICE);
                 notificationManager.notify(NOTIFY_ID, builder.build());
-
-
-
                 break;
         }
     }
@@ -78,17 +74,18 @@ public class MainActivity extends AppCompatActivity {
         blockMinusPage();
         blockPlusPage();
     }
+
     public void blockMinusPage(){
         if(Integer.parseInt(txt_page_state.getText().toString()) == MIN_VALUE_PAGE){
             btn_minus_page.setVisibility(View.INVISIBLE);
         }
         else btn_minus_page.setVisibility(View.VISIBLE);
     }
+
     public void blockPlusPage(){
         if(Integer.parseInt(txt_page_state.getText().toString()) == MAX_VALUE_PAGE){
             btn_plus_page.setVisibility(View.INVISIBLE);
         }
         else btn_plus_page.setVisibility(View.VISIBLE);
     }
-
 }
