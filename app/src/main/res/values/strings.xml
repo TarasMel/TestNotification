@@ -6,5 +6,6 @@
     <string name="create_Notification">Create Notification</string>
 
     <string name="notification_title">Notification</string>
-    <string name="notification_text">Notification created on %s page</string>
+    <string name="notification_text">Notification created on  </string>
+    <string name="notification_page">page</string>
 </resources>

@@ -18,7 +18,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
-    private static final int NOTIFY_ID = 101;
+    private static final int NOTIFY_ID = 1;
     private static final int MIN_VALUE_PAGE = 1;
     private static final int MAX_VALUE_PAGE = 3;
 
@@ -48,17 +48,24 @@ public class MainActivity extends AppCompatActivity {
                 blockPlusPage();
                 break;
             case R.id.btn_createNotification_ID:
-                Intent notificationIntent = new Intent(MainActivity.this, MainActivity.class);
-                PendingIntent contentIntent = PendingIntent.getActivity(MainActivity.this, 0,
-                        notificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
                 Resources res = this.getResources();
+                Intent resultIntent = new Intent(MainActivity.this, MainActivity.class);
+                PendingIntent pendingIntent = PendingIntent.getActivity(MainActivity.this, 0,
+                        resultIntent, PendingIntent.FLAG_CANCEL_CURRENT);
                 NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-                builder.setContentIntent(contentIntent).setSmallIcon(R.drawable.n_2x).setContentTitle
-                        (res.getString(R.string.notification_title)).
-                        setContentText(res.getString(R.string.notification_title) + " " +
-                                txt_page_state.getText().toString() + " " + res.getString(R.string.notification_text));
-                NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                builder.setSmallIcon(R.drawable.n_2x).
+                        setContentTitle(res.getString(R.string.notification_title)).
+                        setContentText(res.getString(R.string.notification_text) + " " + txt_page_state.getText().toString()
+                                + " " + res.getString(R.string.notification_page)).
+                setContentIntent(pendingIntent).
+                setAutoCancel(true);
+
+                NotificationManager notificationManager = (NotificationManager)
+                        getSystemService(Context.NOTIFICATION_SERVICE);
                 notificationManager.notify(NOTIFY_ID, builder.build());
+
+
+
                 break;
         }
     }
